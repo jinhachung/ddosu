@@ -24,18 +24,26 @@ def main():
     f = open(str(d), "r")
     lines = f.readlines()
     f.close()
-    
+   
+    # set which words we wish to leave out
+    filter_words = ["kcal", "그린샐러드"]
+
     menu = [[], []]
     p = False
     ind = 0
     for l in lines:
+        should_append = True
         # printing --> check if we keep printing
         if p:
             if "</ul>" in l:
                 p = False
                 ind = 1
             else:
-                menu[ind].append(l)
+                for w in filter_words:
+                    if w in l.lower():
+                        should_append = False
+                if should_append:
+                    menu[ind].append(l)
                 p = True # redundant
         # not printing --> check if we start printing
         else:
