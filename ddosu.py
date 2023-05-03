@@ -9,6 +9,12 @@ def str_no_num(s):
             return False
     return True
 
+def print_without_numbers_if_has_numbers(s):
+    r = s.split("(")[0].strip()
+    if r == "":
+        return
+    print(r)
+
 def main():
     # get date
     today = date.today()
@@ -55,14 +61,22 @@ def main():
     print("Lunch: ")
     for m in menu[0]:
         _m = m.strip().strip("<br/>")
+        # replace values if necessary
+        _m = _m.replace("&lt;", "<").replace("&gt;", ">")
         if (str_no_num(_m)) and (len(_m) > 0):
             print(_m)
+        else:
+            print_without_numbers_if_has_numbers(_m)
 
     print("\nDinner: ")
     for m in menu[1]:
         _m = m.strip().strip("<br/>")
+        # replace values if necessary
+        _m = _m.replace("&lt;", "<").replace("&gt;", ">")
         if (str_no_num(_m)) and (len(_m) > 0):
             print(_m)
+        else:
+            print_without_numbers_if_has_numbers(_m)
     
     os.remove(str(d))
 
